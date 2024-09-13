@@ -47,8 +47,7 @@ export default function RedactLanding() {
       <animated.div
         style={{
           ...blurProps,
-          transform: `translate(${cursorPosition.x}px, ${cursorPosition.y + window.scrollY}px)`,
-          // transform: cursorFollow,
+          transform: `translate(${cursorPosition.x}px, ${cursorPosition.y + (typeof window !== "undefined" ? window.scrollY : 0)}px)`,
         }}
         className="cursor-blur"
         aria-hidden="true"
