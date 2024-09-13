@@ -15,7 +15,7 @@ export default function RedactLanding() {
   const [isNameHovered, setIsNameHovered] = useState(false);
 
   const blurProps = useSpring({
-    opacity: 0.2,
+    opacity: 0.5,
     config: { mass: 1, tension: 280, friction: 60 },
   });
 
@@ -26,6 +26,11 @@ export default function RedactLanding() {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  // const cursorFollow = useEffect(() => {
+  //   return (`translate(${cursorPosition.x}px, ${cursorPosition.y + window.scrollY}px)`);
+  // })
+  
 
   const handleNameMouseMove = useCallback((e) => {
     if (nameRef.current) {
@@ -43,6 +48,7 @@ export default function RedactLanding() {
         style={{
           ...blurProps,
           transform: `translate(${cursorPosition.x}px, ${cursorPosition.y + window.scrollY}px)`,
+          // transform: cursorFollow,
         }}
         className="cursor-blur"
         aria-hidden="true"
