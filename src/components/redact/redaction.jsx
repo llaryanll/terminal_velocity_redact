@@ -156,96 +156,92 @@ const RedactionComponent = () => {
 
   return (
     <main>
-      <div className={styles.container}>
-        <h2 className={styles.title}>Try PIReT Now</h2>
-        <div className={styles.filldiv}>
-          <button className={styles.filterButton} onClick={toggleFilter}>
-            Apply Filters
-          </button>
-        </div>
-        <div className={styles.redactArea}>
-          <div className={styles.inputArea}>
-            <textarea
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              className={styles.textInput}
-              rows={8}
-              placeholder="Enter your text here..."
-            />
+      <h1 className={styles.mainTitle}>Here is how PIReT solves these problems</h1>
+      <div className={styles.mainContainer}>
+        <div className={styles.container}>
+          <h2 className={styles.title}>Text Redaction</h2>
+          <p className={styles.titleText}>Automatically redact sensitive words or phrases from your texts. Try yourself and find out!</p>
+          <div className={styles.filldiv}>
+            <button className={styles.filterButton} onClick={toggleFilter}>
+              Apply Filters
+            </button>
           </div>
-          <div className={styles.outputArea}>
-            <div className={styles.redactedContent}>
-              {!isLoading && (
-                <p className={styles.redactedText}>
-                  {redactedText || 'Redacted text will appear here...'}
-                </p>
-              )}
-              {(redactedText || image) && (
-                <button
-                  onClick={copyToClipboard}
-                  className={styles.copyButton}
-                  aria-label="Copy redacted text"
-                >
-                  {isCopied ? <Check className={styles.icon} /> : <Copy className={styles.icon} />}
-                </button>
-              )}
+          <div className={styles.redactArea}>
+            <div className={styles.inputArea}>
+              <textarea
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                className={styles.textInput}
+                rows={8}
+                placeholder="Enter your text here..."
+              />
+            </div>
+            <div className={styles.outputArea}>
+              <div className={styles.redactedContent}>
+                {!isLoading && (
+                  <p className={styles.redactedText}>
+                    {redactedText || 'Redacted text will appear here...'}
+                  </p>
+                )}
+                {(redactedText || image) && (
+                  <button
+                    onClick={copyToClipboard}
+                    className={styles.copyButton}
+                    aria-label="Copy redacted text"
+                  >
+                    {isCopied ? <Check className={styles.icon} /> : <Copy className={styles.icon} />}
+                  </button>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-        <div className={styles.buttonGroup}>
-          <button
-            onClick={redact}
-            className={styles.redactButton}
-            disabled={isLoading || (!text && !base64Image)}
-          >
-            {isLoading ? 'Redacting...' : 'Redact Text'}
-          </button>
-          <button className={styles.synthButton}>Synthesize Text</button>
-        </div>
-        {/* <div className={styles.bottomButtons}>
-          <button className={styles.filterButton} onClick={toggleFilter}>
-            Apply Filters
-          </button>
-          <a href="/image" className={styles.imageButton}>
-            Try PIReT for images
-          </a>
-        </div> */}
-        {isFilterOpen && (
-          <div className={styles.filterOverlay} onClick={toggleFilter}></div>
-        )}
-        {isFilterOpen && (
-          <div className={styles.filterMenu}>
-            {Object.keys(filters).map((category) => {
-              const isAllSelected = filters[category].every((option) => selectedFilters.includes(option));
-              return (
-                <div key={category} className={styles.filterCategory}>
-                  <div className={styles.filterCategoryHeader}>
-                    <input
-                      type="checkbox"
-                      id={`${category}-select-all`}
-                      className={styles.filterCheckbox}
-                      checked={isAllSelected}
-                      onChange={() => handleSelectAll(category)}
-                    />
-                    <h3 className={styles.filterCategoryTitle}>{category}</h3>
-                  </div>
-                  {filters[category].map((option) => (
-                    <div key={option} className={styles.filterOption}>
+          <div className={styles.buttonGroup}>
+            <button
+              onClick={redact}
+              className={styles.redactButton}
+              disabled={isLoading || (!text && !base64Image)}
+            >
+              {isLoading ? 'Redacting...' : 'Redact Text'}
+            </button>
+            <button className={styles.synthButton}>Synthesize Text</button>
+          </div>
+          {isFilterOpen && (
+            <div className={styles.filterOverlay} onClick={toggleFilter}></div>
+          )}
+          {isFilterOpen && (
+            <div className={styles.filterMenu}>
+              {Object.keys(filters).map((category) => {
+                const isAllSelected = filters[category].every((option) => selectedFilters.includes(option));
+                return (
+                  <div key={category} className={styles.filterCategory}>
+                    <div className={styles.filterCategoryHeader}>
                       <input
                         type="checkbox"
-                        id={option}
+                        id={`${category}-select-all`}
                         className={styles.filterCheckbox}
-                        checked={selectedFilters.includes(option)}
-                        onChange={() => handleCheckboxChange(option)}
+                        checked={isAllSelected}
+                        onChange={() => handleSelectAll(category)}
                       />
-                      <label htmlFor={option} className={styles.filterLabel}>{option}</label>
+                      <h3 className={styles.filterCategoryTitle}>{category}</h3>
                     </div>
-                  ))}
-                </div>
-              );
-            })}
-          </div>
-        )}
+                    {filters[category].map((option) => (
+                      <div key={option} className={styles.filterOption}>
+                        <input
+                          type="checkbox"
+                          id={option}
+                          className={styles.filterCheckbox}
+                          checked={selectedFilters.includes(option)}
+                          onChange={() => handleCheckboxChange(option)}
+                        />
+                        <label htmlFor={option} className={styles.filterLabel}>{option}</label>
+                      </div>
+                    ))}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>      
     </main>
   );

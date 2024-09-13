@@ -4,7 +4,8 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useSpring, animated } from 'react-spring';
 import { Search } from 'lucide-react';
 import RedactionComponent from '../components/redact/redaction';
-import Features from "../components/features/features";
+import ImageFeat from "../components/imgfeat/imgfeat";
+import TeamCard from "../components/team/team"
 import styles from "../app/page.module.css"
 import Image from 'next/image';
 
@@ -15,7 +16,7 @@ export default function RedactLanding() {
   const [isNameHovered, setIsNameHovered] = useState(false);
 
   const blurProps = useSpring({
-    opacity: 0.2,
+    opacity: 0.5,
     config: { mass: 1, tension: 280, friction: 60 },
   });
 
@@ -26,6 +27,11 @@ export default function RedactLanding() {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  // const cursorFollow = useEffect(() => {
+  //   return (`translate(${cursorPosition.x}px, ${cursorPosition.y + window.scrollY}px)`);
+  // })
+  
 
   const handleNameMouseMove = useCallback((e) => {
     if (nameRef.current) {
@@ -112,7 +118,47 @@ export default function RedactLanding() {
         <div className={styles.styleDiv1}></div>
         <RedactionComponent />
         <div className={styles.styleDiv1}></div>
-        <Features />
+        <ImageFeat />
+        <div className={styles.styleDiv1}></div>
+
+        <div className={styles.team}>
+          <h2 className={styles.teamTitle}>Meet Our Team</h2>
+          <div className={styles.teamCard}>
+            <TeamCard 
+              name={'Aryan Mathur'} 
+              role={'Data Scientist'} 
+              img={'/am.jpg'} 
+              likedin={"https://www.linkedin.com/in/mathur-aryan/"}
+              twitter={""}
+              className={styles.card} 
+            />
+            <TeamCard 
+              name={'Bhagyansh'} 
+              role={'Backend Dev'} 
+              img={'/bb.jpg'} 
+              likedin={"https://www.linkedin.com/in/bhagyansh-bhargava/"}
+              twitter={""}
+              className={styles.card} 
+            />
+            <TeamCard 
+              name={'Janvi Guliyan'} 
+              role={'Design Engineer'} 
+              img={'/jg.png'} 
+              likedin={"https://www.linkedin.com/in/janvi-guliyan-5bb10023a/"}
+              twitter={"https://twitter.com/imjg_"}
+              className={styles.card} 
+            />
+            <TeamCard 
+              name={'Shivank Jindal'} 
+              role={'Cyber Security Speciality'} 
+              img={'/sj.jpg'} 
+              likedin={""}
+              twitter={""}
+              className={styles.card} 
+            />
+          </div>
+        </div>
+
         <div className={styles.styleDiv1}></div>
       </main>
     </div>
